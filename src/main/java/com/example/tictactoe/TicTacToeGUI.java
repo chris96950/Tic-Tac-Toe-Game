@@ -4,6 +4,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import java.util.Scanner;
 
 public class TicTacToeGUI extends Tic_Tac_Toe1 {
 

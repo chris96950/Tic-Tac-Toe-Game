@@ -41,15 +41,17 @@ class Scoreboard {
 
     public void add(GameEntry e){
     	
-        String playerName = e.getName(); boolean playerExists = false; int indexPlayer = 0, scr = 0;
+        String playerName = e.getName(); boolean playerExists = false; int indexPlayer = -1, scr = 0;
         for (int i = 0; i < numEntries; i++) {
         	if (playerName.equals(score[i].getName())) {
         		playerExists = true;
         		indexPlayer = i;
         		scr = score[indexPlayer].getScore();
+
         	}
         	if (playerExists) {
         		score[indexPlayer].setScore(scr+100);
+                sortPlayer(indexPlayer); //(NEW) Calls sort player method
         		/*
         		 * Will do a method here, something like compareScore or compareSwap(score[indexPlayer], score[indexPlayer-1], indexPlayer)
         		 * Maybe make bubble sort for 0 < i < indexPlayer 
@@ -74,8 +76,19 @@ class Scoreboard {
                 j--;
             }
             score[j] = e;
+            sortPlayer(j);
         }
     }
+
+    public void sortPlayer(int index){ // (NEW) Makes it so it sorts the highest score
+        while (index > 0 && score[index].getScore() > score[index-1].getScore()){
+            GameEntry temp = score[index];
+            score[index]=score[index-1];
+            score[index-1]=temp;
+            index--;
+        }
+    }
+
     public GameEntry[] getScore(){
         return score;
     }
@@ -134,6 +147,7 @@ abstract class Tic_Tac_Toe1 {
         GameEntry e = new GameEntry(name, score);
         scoreboard.add(e);
     }
+
     
     public GameEntry[] getScoreboard(){
         return scoreboard.getScore();
