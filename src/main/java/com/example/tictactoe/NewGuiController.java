@@ -45,16 +45,6 @@ public class NewGuiController {
 		player1Name = Player1_lbl.getText();
 		player2Name = Player2_lbl.getText();
 
-		if (player1Name == null || player1Name.trim().isEmpty()) {
-			player1Name = "Player 1";
-			Player1_lbl.setText(player1Name);
-		}
-
-		if (player2Name == null || player2Name.trim().isEmpty()) {
-			player2Name = "Player 2";
-			Player2_lbl.setText(player2Name);
-		}
-
 		initializeBoard();
 		setupButtonActions();
 		hideWinningLines();

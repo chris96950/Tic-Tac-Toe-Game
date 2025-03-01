@@ -30,6 +30,14 @@ public class HelloApplication extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/tictactoe/TicTacToe.fxml"));
         Parent root = loader.load();
 
+        // Handle empty player names, setting defaults
+        if (playerX == null || playerX.trim().isEmpty()) {
+            playerX = "Player X"; // Default name for Player X
+        }
+        if (playerO == null || playerO.trim().isEmpty()) {
+            playerO = "Player O"; // Default name for Player O
+        }
+
         //Call the NewGui Controller and pass the names thru CYKA BLYAT
         NewGuiController controller = loader.getController();
         controller.setPlayerNames(playerX, playerO);
