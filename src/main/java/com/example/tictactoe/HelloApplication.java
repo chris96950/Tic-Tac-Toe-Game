@@ -7,11 +7,38 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class HelloApplication extends Application {
+    private Stage primaryStage;
 
     @Override
-        public void start(Stage primaryStage) throws Exception {
-        new TicTacToeGUI().start(primaryStage); // Launch TicTacToeGUI
+    public void start(Stage primaryStage) throws Exception {
+        this.primaryStage = primaryStage;
+
+        // Load PlayerName.fxml
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/tictactoe/PlayerName.fxml"));
+        Parent root = loader.load();
+
+        // Get Controller and Pass Main Application Reference
+        PlayerNameController controller = loader.getController();
+        controller.setMainApplication(this);
+
+        primaryStage.setTitle("Enter Player Names");
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
     }
+    //Method to Open New GUI Scene
+    public void showNewGuiScene(String playerX, String playerO) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/tictactoe/TicTacToe.fxml"));
+        Parent root = loader.load();
+
+        //Call the NewGui Controller and pass the names thru CYKA BLYAT
+        NewGuiController controller = loader.getController();
+        controller.setPlayerNames(playerX, playerO);
+        
+        primaryStage.setTitle("Tic Tac Toe - " + playerX + " vs " + playerO);
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
+    }
+    
 
     public static void main(String[] args) {
         launch(args);
