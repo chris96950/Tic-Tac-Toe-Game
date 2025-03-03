@@ -210,7 +210,7 @@ public class NewGuiController {
 		updateScoreboardDisplay(game);
 		disableAllButtons();
 		drawWinningLine();
-		PauseTransition pause = new PauseTransition(Duration.seconds(3));
+		PauseTransition pause = new PauseTransition(Duration.seconds(1.5));
 		pause.setOnFinished(event -> resetBoard());
 		pause.play();
 	}
@@ -222,7 +222,7 @@ public class NewGuiController {
 				Player1_lbl.getText() + ": " + player1Score + " | " +
 				Player2_lbl.getText() + ": " + player2Score);
 
-		PauseTransition pause = new PauseTransition(Duration.seconds(3));
+		PauseTransition pause = new PauseTransition(Duration.seconds(1.5));
 		pause.setOnFinished(event -> resetBoard());
 		pause.play();
 	}
