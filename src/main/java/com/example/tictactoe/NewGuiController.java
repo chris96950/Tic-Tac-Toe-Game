@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.shape.Line;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class NewGuiController {
@@ -123,17 +124,45 @@ public class NewGuiController {
 				(board[2][0] + board[1][1] + board[0][2] == mark * 3));
 	}
 
+	private void updateScoreboardDisplay(Tic_Tac_Toe1 game) {
+		StringBuilder scoreboardText = new StringBuilder("Scores:\n");
+		GameEntry[] scores = game.getScoreboard();
+
+		for (int i = 0; i < game.getNumScores(); i++) {
+			scoreboardText.append((i + 1)).append(". ")
+					.append(scores[i].getName()).append(": ")
+					.append(scores[i].getScore()).append("\n");
+		}
+
+		scoreBoard_lbl.setText(scoreboardText.toString());
+	}
+
 	private void handleWin() {
 		if (currentPlayer == 'X') {
-			player1Score++;
+			player1Score += 100; // Increments score
 		} else {
-			player2Score++;
+			player2Score += 100;
 		}
+
+		// Add the scores to the scoreboard
+		Tic_Tac_Toe1 game = new Tic_Tac_Toe1() {
+			@Override
+			public void start(Stage primaryStage) {
+
+			}
+		};
+		game.addScore(Player1_lbl.getText(), player1Score);
+		game.addScore(Player2_lbl.getText(), player2Score);
+
+		// Update the scoreboard label
+		updateScoreboardDisplay(game);
+
 		drawWinningLine();
 		PauseTransition pause = new PauseTransition(Duration.seconds(3));
 		pause.setOnFinished(event -> resetBoard());
 		pause.play();
 	}
+
 
 	private void handleDraw() {
 		PauseTransition pause = new PauseTransition(Duration.seconds(3));
@@ -148,6 +177,8 @@ public class NewGuiController {
 		currentPlayer = 'X';
 		hideWinningLines();
 	}
+
+
 
 	private void clearButtonTexts() {
 		Button[][] buttons = {
