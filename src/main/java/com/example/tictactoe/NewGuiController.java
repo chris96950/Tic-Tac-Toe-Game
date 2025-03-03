@@ -2,23 +2,15 @@ package com.example.tictactoe;
 
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.io.IOException;
-
 public class NewGuiController {
 	@FXML
 	private Label Player1_lbl, Player2_lbl;
-
-	@FXML
-	private Label Header_lbl;
 
 	@FXML
 	private Button reset_btn;
@@ -32,13 +24,9 @@ public class NewGuiController {
 	@FXML
 	private Button button00, button10, button20, button01, button11, button21, button02, button12, button22;
 
-	@FXML
-	private Stage primaryStage;
-
 	public void setPlayerNames(String playerX, String playerO) {
 		Player1_lbl.setText(playerX);
 		Player2_lbl.setText(playerO);
-		updateCurrentPlayerTurn();
 	}
 
 	// Game Logic Variables
@@ -61,24 +49,7 @@ public class NewGuiController {
 		initializeBoard();
 		setupButtonActions();
 		hideWinningLines();
-		Header_lbl.setText("TicTacToe Game");
-		updateCurrentPlayerTurn();
 	}
-
-	private void updateCurrentPlayerTurn() {
-		if (Header_lbl != null) {
-			if (moves > 0) { // Check if a move has been made
-				Header_lbl.setText(currentPlayer + "'s Turn");
-			}
-			if (currentPlayer == 'X') {
-				Player1_lbl.setStyle("-fx-background-color:  #828f55; -fx-background-radius: 20px;");
-				Player2_lbl.setStyle("-fx-background-color:  white; -fx-background-radius: 20px;");
-			} else {
-				Player2_lbl.setStyle("-fx-background-color:  #828f55; -fx-background-radius: 20px;");
-				Player1_lbl.setStyle("-fx-background-color:  white; -fx-background-radius: 20px;");
-			}
-	}
-		}
 
 	private void hideWinningLines() {
 		if (VLeft_line != null) VLeft_line.setVisible(false);
@@ -129,7 +100,6 @@ public class NewGuiController {
 				handleDraw();
 			} else {
 				currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
-				updateCurrentPlayerTurn();
 			}
 		}
 	}
@@ -188,27 +158,28 @@ public class NewGuiController {
 		updateScoreboardDisplay(game);
 
 		drawWinningLine();
-		disableEmptyButtons();
-		PauseTransition pause = new PauseTransition(Duration.seconds(1.5));
+		PauseTransition pause = new PauseTransition(Duration.seconds(3));
 		pause.setOnFinished(event -> resetBoard());
 		pause.play();
 	}
 
 
 	private void handleDraw() {
-		PauseTransition pause = new PauseTransition(Duration.seconds(1.5));
+		// Display tie message with the current score
+		scoreBoard_lbl.setText("It's a tie!\n" +
+				Player1_lbl.getText() + ": " + player1Score + " | " +
+				Player2_lbl.getText() + ": " + player2Score);
+
+		PauseTransition pause = new PauseTransition(Duration.seconds(3));
 		pause.setOnFinished(event -> resetBoard());
 		pause.play();
 	}
-
 	private void resetBoard() {
 		initializeBoard();
 		clearButtonTexts();
 		moves = 0;
 		currentPlayer = 'X';
 		hideWinningLines();
-		enableAllButtons();
-		updateCurrentPlayerTurn();
 	}
 
 
@@ -227,41 +198,10 @@ public class NewGuiController {
 		}
 	}
 
-	private void disableEmptyButtons() {
-		Button[][] buttons = {
-				{button00, button01, button02},
-				{button10, button11, button12},
-				{button20, button21, button22}
-		};
-
-		for (int row = 0; row < 3; row++) {
-			for (int col = 0; col < 3; col++) {
-				if (buttons[row][col].getText().isEmpty()) {
-					buttons[row][col].setDisable(true);
-				}
-			}
-		}
-	}
-	private void enableAllButtons(){
-		Button[][] buttons = {
-				{button00, button01, button02},
-				{button10, button11, button12},
-				{button20, button21, button22}
-		};
-
-		for (int row = 0; row < 3; row++) {
-			for (int col = 0; col < 3; col++) {
-				buttons[row][col].setDisable(false);
-			}
-		}
-	}
-
 	private void resetGame() {
 		player1Score = 0;
 		player2Score = 0;
 		resetBoard();
-		updateCurrentPlayerTurn();
-		Header_lbl.setText("TicTacToe Game");
 	}
 
 	private void drawWinningLine() {
@@ -287,5 +227,4 @@ public class NewGuiController {
 			return;
 		}
 	}
-
 }
