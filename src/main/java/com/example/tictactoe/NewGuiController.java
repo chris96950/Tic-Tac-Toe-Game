@@ -92,23 +92,62 @@ public class NewGuiController {
 				final int r = row;
 				final int c = col;
 				buttons[row][col].setOnAction(event -> handleButtonClick(r, c));
+
+				// Set hover effect
+				buttons[row][col].setOnMouseEntered(event -> handleMouseEnter(r, c));
+				buttons[row][col].setOnMouseExited(event -> handleMouseExit(r, c));
 			}
 		}
 
 		reset_btn.setOnAction(event -> resetGame());
 	}
 
+	private void handleMouseEnter(int row, int col) {
+		Button[][] buttons = {
+				{button00, button01, button02},
+				{button10, button11, button12},
+				{button20, button21, button22}
+		};
+
+		// Show the current player's mark if the button is empty
+		if (board[row][col] == EMPTY) {
+			buttons[row][col].setText(String.valueOf(currentPlayer));  // Show hover mark
+			buttons[row][col].setStyle("-fx-text-fill: #a7b088; -fx-background-color: transparent;");
+		}
+	}
+
+	private void handleMouseExit(int row, int col) {
+		Button[][] buttons = {
+				{button00, button01, button02},
+				{button10, button11, button12},
+				{button20, button21, button22}
+		};
+
+		// Only remove hover mark if the button is still empty
+		if (board[row][col] == EMPTY) {
+			buttons[row][col].setText("");  // Remove hover mark
+			buttons[row][col].setStyle("-fx-text-fill: #828f55; -fx-background-color: transparent;");
+		}
+	}
+
 	private void handleButtonClick(int row, int col) {
 		if (board[row][col] == EMPTY) {
-			board[row][col] = (currentPlayer == 'X') ? X : O; // Update board with X or O
+			// Update the board with the current player's mark (X or O)
+			board[row][col] = (currentPlayer == 'X') ? X : O;
+
+			// Update the button text with the correct mark
 			updateButtonText(row, col);
+
+			// Increment the number of moves
 			moves++;
 
-			if (isWin((currentPlayer == 'X') ? X : O)) { // Use isWin()
+			// Check if the game has a winner or a draw
+			if (isWin((currentPlayer == 'X') ? X : O)) {
 				handleWin();
 			} else if (moves == 9) {
 				handleDraw();
 			} else {
+				// Switch to the other player
 				currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
 			}
 		}
@@ -120,9 +159,12 @@ public class NewGuiController {
 				{button10, button11, button12},
 				{button20, button21, button22}
 		};
-		buttons[row][col].setText(String.valueOf((board[row][col] == X) ? 'X' : (board[row][col] == O) ? 'O' : ' ')); // Update button text
-	}
 
+		// Update the button text to show the current player's mark (X or O)
+		buttons[row][col].setText(String.valueOf((board[row][col] == X) ? 'X' : 'O'));
+		// Optionally, you can add style for font color as well.
+		buttons[row][col].setStyle("-fx-text-fill: #828f55; -fx-background-color: transparent;");
+	}
 	private boolean isWin(int mark) {
 		return ((board[0][0] + board[0][1] + board[0][2] == mark * 3) ||
 				(board[1][0] + board[1][1] + board[1][2] == mark * 3) ||
@@ -166,7 +208,7 @@ public class NewGuiController {
 
 		// Update the scoreboard label
 		updateScoreboardDisplay(game);
-
+		disableAllButtons();
 		drawWinningLine();
 		PauseTransition pause = new PauseTransition(Duration.seconds(3));
 		pause.setOnFinished(event -> resetBoard());
@@ -189,10 +231,39 @@ public class NewGuiController {
 		clearButtonTexts();
 		moves = 0;
 		currentPlayer = 'X';
+		enableAllButtons();
 		hideWinningLines();
 	}
 
+	private void disableAllButtons() {
+		Button[][] buttons = {
+				{button00, button01, button02},
+				{button10, button11, button12},
+				{button20, button21, button22}
+		};
 
+		for (int row = 0; row < 3; row++) {
+			for (int col = 0; col < 3; col++) {
+				if (board[row][col] == EMPTY) { // Check if the button is empty
+					buttons[row][col].setDisable(true); // Disable the empty button
+				}
+			}
+		}
+	}
+
+	private void enableAllButtons() {
+		Button[][] buttons = {
+				{button00, button01, button02},
+				{button10, button11, button12},
+				{button20, button21, button22}
+		};
+
+		for (int row = 0; row < 3; row++) {
+			for (int col = 0; col < 3; col++) {
+				buttons[row][col].setDisable(false); // Enable the button
+			}
+		}
+	}
 
 	private void clearButtonTexts() {
 		Button[][] buttons = {
