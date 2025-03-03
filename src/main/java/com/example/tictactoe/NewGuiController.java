@@ -165,11 +165,15 @@ public class NewGuiController {
 
 
 	private void handleDraw() {
+		// Display tie message with the current score
+		scoreBoard_lbl.setText("It's a tie!\n" +
+				Player1_lbl.getText() + ": " + player1Score + " | " +
+				Player2_lbl.getText() + ": " + player2Score);
+
 		PauseTransition pause = new PauseTransition(Duration.seconds(3));
 		pause.setOnFinished(event -> resetBoard());
 		pause.play();
 	}
-
 	private void resetBoard() {
 		initializeBoard();
 		clearButtonTexts();
