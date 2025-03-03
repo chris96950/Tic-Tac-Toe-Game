@@ -166,7 +166,7 @@ public class NewGuiController {
 
 		// Update the scoreboard label
 		updateScoreboardDisplay(game);
-
+		disableAllButtons();
 		drawWinningLine();
 		PauseTransition pause = new PauseTransition(Duration.seconds(3));
 		pause.setOnFinished(event -> resetBoard());
@@ -189,10 +189,39 @@ public class NewGuiController {
 		clearButtonTexts();
 		moves = 0;
 		currentPlayer = 'X';
+		enableAllButtons();
 		hideWinningLines();
 	}
 
+	private void disableAllButtons() {
+		Button[][] buttons = {
+				{button00, button01, button02},
+				{button10, button11, button12},
+				{button20, button21, button22}
+		};
 
+		for (int row = 0; row < 3; row++) {
+			for (int col = 0; col < 3; col++) {
+				if (board[row][col] == EMPTY) { // Check if the button is empty
+					buttons[row][col].setDisable(true); // Disable the empty button
+				}
+			}
+		}
+	}
+
+	private void enableAllButtons() {
+		Button[][] buttons = {
+				{button00, button01, button02},
+				{button10, button11, button12},
+				{button20, button21, button22}
+		};
+
+		for (int row = 0; row < 3; row++) {
+			for (int col = 0; col < 3; col++) {
+				buttons[row][col].setDisable(false); // Enable the button
+			}
+		}
+	}
 
 	private void clearButtonTexts() {
 		Button[][] buttons = {
