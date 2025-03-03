@@ -39,18 +39,36 @@
                             <RowConstraints maxHeight="140.0" minHeight="10.0" prefHeight="140.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Line fx:id="VLeft_line" endX="164.00038146972656" endY="480.7588195800781" startX="163.6669464111328" startY="133.7587890625" stroke="#828f55" strokeLineCap="ROUND" strokeWidth="6.0" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                              <Line fx:id="VLeft_line" endX="163.5527801513672" endY="426.0921325683594" startX="163.6669464111328" startY="133.7587890625" stroke="#828f55" strokeLineCap="ROUND" strokeWidth="6.0" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                                  <rotationAxis>
                                     <Point3D />
                                  </rotationAxis>
+                                 <GridPane.margin>
+                                    <Insets right="10.0" top="20.0" />
+                                 </GridPane.margin>
                               </Line>
-                              <Line fx:id="DRight_line" endX="163.33349609375" endY="494.7588195800781" startX="509.00018310546875" startY="146.49488830566406" stroke="#828f55" strokeLineCap="ROUND" strokeWidth="6.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                              <Line fx:id="VMiddle_line" endX="164.00038146972656" endY="480.7588195800781" startX="163.6669464111328" startY="133.7587890625" stroke="#828f55" strokeLineCap="ROUND" strokeWidth="6.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
-                              <Line fx:id="VRight_line" endX="164.00038146972656" endY="480.7588195800781" startX="163.6669464111328" startY="133.7587890625" stroke="#828f55" strokeLineCap="ROUND" strokeWidth="6.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
-                              <Line fx:id="HTop_line" endX="164.00038146972656" endY="480.7588195800781" startX="512.3336791992188" startY="478.4256896972656" stroke="#828f55" strokeLineCap="ROUND" strokeWidth="6.0" />
-                              <Line fx:id="HMiddle_line" endX="164.00038146972656" endY="480.7588195800781" startX="512.3336791992188" startY="478.4256896972656" stroke="#828f55" strokeLineCap="ROUND" strokeWidth="6.0" GridPane.rowIndex="1" />
-                              <Line fx:id="HBottom_line" endX="164.00038146972656" endY="480.7588195800781" startX="512.3336791992188" startY="478.4256896972656" stroke="#828f55" strokeLineCap="ROUND" strokeWidth="6.0" GridPane.rowIndex="2" />
-                              <Line fx:id="DLeft_line" endX="136.33056640625" endY="589.0926513671875" startX="477.6667785644531" startY="933.0921630859375" stroke="#828f55" strokeLineCap="ROUND" strokeWidth="6.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                              <Line fx:id="DRight_line" endX="163.33349609375" endY="494.7588195800781" startX="455.0001220703125" startY="213.83026123046875" stroke="#828f55" strokeLineCap="ROUND" strokeWidth="6.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                              <Line fx:id="VMiddle_line" endX="163.00120544433594" endY="424.7588195800781" startX="163.6669464111328" startY="133.7587890625" stroke="#828f55" strokeLineCap="ROUND" strokeWidth="6.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                                 <GridPane.margin>
+                                    <Insets top="20.0" />
+                                 </GridPane.margin></Line>
+                              <Line fx:id="VRight_line" endX="163.66697692871094" endY="428.7588195800781" startX="163.6669464111328" startY="133.7587890625" stroke="#828f55" strokeLineCap="ROUND" strokeWidth="6.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                                 <GridPane.margin>
+                                    <Insets bottom="20.0" left="10.0" top="20.0" />
+                                 </GridPane.margin></Line>
+                              <Line fx:id="HTop_line" endX="771.333740234375" endY="476.4263916015625" startX="467.66705322265625" startY="478.7591552734375" stroke="#828f55" strokeLineCap="ROUND" strokeWidth="6.0">
+                                 <GridPane.margin>
+                                    <Insets left="20.0" right="20.0" />
+                                 </GridPane.margin></Line>
+                              <Line fx:id="HMiddle_line" endX="164.00038146972656" endY="480.7588195800781" startX="466.33367919921875" startY="483.0919494628906" stroke="#828f55" strokeLineCap="ROUND" strokeWidth="6.0" GridPane.rowIndex="1">
+                                 <GridPane.margin>
+                                    <Insets left="20.0" />
+                                 </GridPane.margin></Line>
+                              <Line fx:id="HBottom_line" endX="164.00038146972656" endY="480.7588195800781" startX="465.66705322265625" startY="482.42529296875" stroke="#828f55" strokeLineCap="ROUND" strokeWidth="6.0" GridPane.rowIndex="2">
+                                 <GridPane.margin>
+                                    <Insets left="20.0" />
+                                 </GridPane.margin></Line>
+                              <Line fx:id="DLeft_line" endX="194.9945068359375" endY="655.7599487304688" startX="477.6667785644531" startY="933.0921630859375" stroke="#828f55" strokeLineCap="ROUND" strokeWidth="6.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                               <Button fx:id="button00" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: transparent;" textAlignment="CENTER" textFill="#828f55" textOverrun="CLIP" GridPane.halignment="LEFT" GridPane.valignment="TOP">
                                  <font>
                                     <Font name="Calibri Bold" size="48.0" />
@@ -98,7 +116,7 @@
                               </Button>
                            </children>
                         </GridPane>
-                        <Label alignment="CENTER" layoutX="48.0" layoutY="26.0" prefHeight="56.0" prefWidth="350.0" text="Tic Tac Toe Game" textFill="#5c381f">
+                        <Label fx:id="Header_lbl" alignment="CENTER" layoutX="48.0" layoutY="26.0" prefHeight="56.0" prefWidth="350.0" text="Tic Tac Toe Game" textFill="#5c381f">
                            <font>
                               <Font name="Calibri Bold" size="36.0" />
                            </font>
