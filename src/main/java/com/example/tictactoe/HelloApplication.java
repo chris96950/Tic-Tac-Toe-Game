@@ -28,6 +28,7 @@ public class HelloApplication extends Application {
     }
     //Method to Open New GUI Scene
     public void showNewGuiScene(String playerX, String playerO) throws Exception {
+        System.out.println("showNewGuiScene method called");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/tictactoe/TicTacToe.fxml"));
         Parent root = loader.load();
 
@@ -37,16 +38,20 @@ public class HelloApplication extends Application {
         }
         if (playerO == null || playerO.trim().isEmpty()) {
             playerO = "Player O"; // Default name for Player O
-        }
+        };
 
-        //Call the NewGui Controller and pass the names thru CYKA BLYAT
         NewGuiController controller = loader.getController();
         controller.setPlayerNames(playerX, playerO);
-        
+
         primaryStage.setTitle("Tic Tac Toe - " + playerX + " vs " + playerO);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
+
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
 
     public static void main(String[] args) {
         launch(args);

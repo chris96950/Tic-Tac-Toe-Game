@@ -1,12 +1,19 @@
 package com.example.tictactoe;
 
 import javafx.animation.PauseTransition;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
+import java.io.IOException;
 
 public class NewGuiController {
 	@FXML
@@ -14,6 +21,9 @@ public class NewGuiController {
 
 	@FXML
 	private Button reset_btn;
+
+	@FXML
+	private GridPane gridPane;
 
 	@FXML
 	private Label scoreBoard_lbl;
@@ -42,7 +52,7 @@ public class NewGuiController {
 	public static final int EMPTY = 0;
 
 	@FXML
-	public void initialize() {
+	public void initialize() throws IOException {
 		player1Name = Player1_lbl.getText();
 		player2Name = Player2_lbl.getText();
 
@@ -227,4 +237,7 @@ public class NewGuiController {
 			return;
 		}
 	}
+
+
 }
+
