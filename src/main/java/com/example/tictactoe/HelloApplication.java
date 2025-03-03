@@ -28,7 +28,6 @@ public class HelloApplication extends Application {
     }
     //Method to Open New GUI Scene
     public void showNewGuiScene(String playerX, String playerO) throws Exception {
-        System.out.println("showNewGuiScene method called");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/tictactoe/TicTacToe.fxml"));
         Parent root = loader.load();
 
@@ -46,10 +45,6 @@ public class HelloApplication extends Application {
         primaryStage.setTitle("Tic Tac Toe - " + playerX + " vs " + playerO);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
-    }
-
-    public Stage getPrimaryStage() {
-        return primaryStage;
     }
 
 

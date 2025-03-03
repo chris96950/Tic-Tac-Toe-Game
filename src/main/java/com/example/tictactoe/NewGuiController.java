@@ -237,7 +237,5 @@ public class NewGuiController {
 			return;
 		}
 	}
-
-
 }
 
