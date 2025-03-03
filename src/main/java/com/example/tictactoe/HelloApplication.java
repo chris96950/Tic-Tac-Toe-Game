@@ -47,6 +47,18 @@ public class HelloApplication extends Application {
         primaryStage.show();
     }
 
+    private static HelloApplication instance;
+
+    public HelloApplication() {
+        instance = this;
+    }
+
+    public static HelloApplication getInstance() {
+        return instance;
+    }
+
+
+
 
     public static void main(String[] args) {
         launch(args);

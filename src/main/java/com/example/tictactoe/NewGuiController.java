@@ -99,7 +99,7 @@ public class NewGuiController {
 			}
 		}
 
-		reset_btn.setOnAction(event -> resetGame());
+		//reset_btn.setOnAction(event -> resetGame());
 	}
 
 	private void handleMouseEnter(int row, int col) {
@@ -308,5 +308,27 @@ public class NewGuiController {
 			return;
 		}
 	}
+
+
+	@FXML
+	private void switchToNew(ActionEvent event) throws IOException {
+		Stage currentStage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/tictactoe/PlayerName.fxml"));
+		Parent root = loader.load();
+
+		Scene newScene = new Scene(root);
+
+		PlayerNameController controller = loader.getController();
+		controller.setMainApplication(HelloApplication.getInstance());
+
+		currentStage.setScene(newScene);
+		currentStage.setTitle("Enter Player Names");
+		currentStage.show();
+	}
+
+
+
+
 }
 
