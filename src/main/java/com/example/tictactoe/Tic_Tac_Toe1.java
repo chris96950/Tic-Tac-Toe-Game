@@ -29,54 +29,40 @@ class GameEntry{
 }
 class Scoreboard {
 
+	private static Scoreboard instance = null;
     private int numEntries=0;
     private GameEntry[] score;
-    public Scoreboard(int Capacity){
-
+    private Scoreboard(int Capacity){
         score = new GameEntry[Capacity];
-
+    }
+    public static Scoreboard getInstance() {
+        if (instance == null) {
+            instance = new Scoreboard(10); // Adjust capacity as needed
+        }
+        return instance;
     }
 
 
 
     public void add(GameEntry e){
-    	
-        String playerName = e.getName(); boolean playerExists = false; int indexPlayer = -1, scr = 0;
-        for (int i = 0; i < numEntries; i++) {
-        	if (playerName.equals(score[i].getName())) {
-        		playerExists = true;
-        		indexPlayer = i;
-        		scr = score[indexPlayer].getScore();
-
-        	}
-        	if (playerExists) {
-        		score[indexPlayer].setScore(scr+100);
-                sortPlayer(indexPlayer); //(NEW) Calls sort player method
-        		/*
-        		 * Will do a method here, something like compareScore or compareSwap(score[indexPlayer], score[indexPlayer-1], indexPlayer)
-        		 * Maybe make bubble sort for 0 < i < indexPlayer 
-        		 */
-        		return; //If this playerExists = true, kill method immediately so code under doesn't run
-        	}
-        }
-
+        String playerName = e.getName();
         int newScore = e.getScore();
+
+        // Check if the player already exists in the scoreboard
         for (int i = 0; i < numEntries; i++) {
-            if (playerName.equals(score[i].getName())) {
-                newScore += 100;
-                score[i] = new GameEntry(playerName, newScore);
+            if (score[i] != null && score[i].getName().equals(playerName)) {
+                // Update the existing player's score
+                score[i].setScore(score[i].getScore() + newScore);
+                sortPlayer(i); // Sort leaderboard after update
+                return; // Exit after updating
             }
         }
-        if (numEntries < score.length || newScore > score[numEntries-1].getScore()){
-            if (numEntries < score.length)
-                numEntries++;
-            int j = numEntries - 1;
-            while (j > 0 && score[j-1].getScore() < newScore){
-                score[j] = score[j-1];
-                j--;
-            }
-            score[j] = e;
-            sortPlayer(j);
+
+        // If player does not exist, add them to the scoreboard
+        if (numEntries < score.length) {
+            score[numEntries] = new GameEntry(playerName, newScore);  
+            numEntries++;
+            sortPlayer(numEntries - 1);
         }
     }
 
@@ -107,7 +93,7 @@ abstract class Tic_Tac_Toe1 {
 
     public Tic_Tac_Toe1() {
         clearBoard();
-        scoreboard = new Scoreboard(2); //=====NEW=====
+        //scoreboard = new Scoreboard(2); //=====NEW=====
     }
     
     public void clearBoard() {
@@ -144,17 +130,16 @@ abstract class Tic_Tac_Toe1 {
     }
     //======================================================================= ^^^ ORIGINAL
     public void addScore(String name, int score){
-        GameEntry e = new GameEntry(name, score);
-        scoreboard.add(e);
+    	Scoreboard.getInstance().add(new GameEntry(name, score)); 
     }
 
     
     public GameEntry[] getScoreboard(){
-        return scoreboard.getScore();
+    	return Scoreboard.getInstance().getScore();
     
     }
     public int getNumScores(){
-        return scoreboard.getNumEntries();
+    	return Scoreboard.getInstance().getNumEntries();
     
     }
     public void displayScoreboard(){

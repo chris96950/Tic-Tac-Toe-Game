@@ -11,3 +11,6 @@
 .default-button:pressed{
     -fx-background-color: #565f38;
 }
+.general-lblStyle{
+	-fx-text-alignment: center;
+}

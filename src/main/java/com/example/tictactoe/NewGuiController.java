@@ -53,12 +53,15 @@ public class NewGuiController {
 
 	@FXML
 	public void initialize() throws IOException {
+		//scoreBoard_lbl.setStyle("general-lblStyle"); =
 		player1Name = Player1_lbl.getText();
 		player2Name = Player2_lbl.getText();
 
 		initializeBoard();
 		setupButtonActions();
 		hideWinningLines();
+		
+		updateScoreboardDisplay();
 	}
 
 	private void hideWinningLines() {
@@ -176,17 +179,17 @@ public class NewGuiController {
 				(board[2][0] + board[1][1] + board[0][2] == mark * 3));
 	}
 
-	private void updateScoreboardDisplay(Tic_Tac_Toe1 game) {
-		StringBuilder scoreboardText = new StringBuilder("Scores:\n");
-		GameEntry[] scores = game.getScoreboard();
+	private void updateScoreboardDisplay() { //removed parameter
+	    StringBuilder scoreboardText = new StringBuilder("Scores:\n");
+	    GameEntry[] scores = Scoreboard.getInstance().getScore();
 
-		for (int i = 0; i < game.getNumScores(); i++) {
-			scoreboardText.append((i + 1)).append(". ")
-					.append(scores[i].getName()).append(": ")
-					.append(scores[i].getScore()).append("\n");
-		}
+	    for (int i = 0; i < Scoreboard.getInstance().getNumEntries(); i++) {
+	        scoreboardText.append((i + 1)).append(". ")
+	                      .append(scores[i].getName()).append(": ")
+	                      .append(scores[i].getScore()).append("\n");
+	    }
 
-		scoreBoard_lbl.setText(scoreboardText.toString());
+	    scoreBoard_lbl.setText(scoreboardText.toString());
 	}
 
 	private void handleWin() {
@@ -203,11 +206,15 @@ public class NewGuiController {
 
 			}
 		};
-		game.addScore(Player1_lbl.getText(), player1Score);
-		game.addScore(Player2_lbl.getText(), player2Score);
+		//Added so only winner gets added to scoreboard
+		if (currentPlayer == 'X') {
+		    Scoreboard.getInstance().add(new GameEntry(Player1_lbl.getText(), 100));
+		} else {
+		    Scoreboard.getInstance().add(new GameEntry(Player2_lbl.getText(), 100));
+		}
 
 		// Update the scoreboard label
-		updateScoreboardDisplay(game);
+		updateScoreboardDisplay();
 		disableAllButtons();
 		drawWinningLine();
 		PauseTransition pause = new PauseTransition(Duration.seconds(1.5));

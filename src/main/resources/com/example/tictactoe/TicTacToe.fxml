@@ -152,7 +152,7 @@
                         </Label>
                         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="55.0" layoutY="195.0" prefHeight="22.0" prefWidth="245.0" text="Score Board" textFill="#5c381f">
                            <font>
-                              <Font name="Calibri Bold" size="18.0" />
+                              <Font name="Calibri Bold" size="24.0" />
                            </font>
                         </Label>
                         <Label fx:id="scoreBoard_lbl" alignment="TOP_LEFT" layoutX="40.0" layoutY="232.0" prefHeight="201.0" prefWidth="275.0" style="-fx-border-color: #914F1E; -fx-background-color: white;" textFill="#5c381f">

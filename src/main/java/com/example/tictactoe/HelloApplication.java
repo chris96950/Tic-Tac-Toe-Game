@@ -38,7 +38,7 @@ public class HelloApplication extends Application {
         if (playerO == null || playerO.trim().isEmpty()) {
             playerO = "Player O"; // Default name for Player O
         };
-
+        
         NewGuiController controller = loader.getController();
         controller.setPlayerNames(playerX, playerO);
 
