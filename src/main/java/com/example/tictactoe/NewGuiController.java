@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.util.Random;
 
 public class NewGuiController {
 	@FXML
@@ -46,7 +47,7 @@ public class NewGuiController {
 	}
 
 	// Game Logic Variables
-	private char currentPlayer = 'X';
+	private char currentPlayer = ' ';
 	private int[][] board = new int[3][3]; // Use int array for isWin()
 	private int moves = 0;
 	private int player1Score = 0;
@@ -62,6 +63,11 @@ public class NewGuiController {
 		//scoreBoard_lbl.setStyle("general-lblStyle"); =
 		player1Name = Player1_lbl.getText();
 		player2Name = Player2_lbl.getText();
+
+		Random random = new Random();
+		currentPlayer = (random.nextBoolean()) ? 'X' : 'O'; // Randomly choose 'X' or 'O'
+		updateTurnLabel();
+		updateScoreboardDisplay();
 
 		Header_lbl.setText("Tic Tac Toe Game");
 		initializeBoard();
@@ -293,8 +299,17 @@ public class NewGuiController {
 	private void resetBoard() {
 		initializeBoard();
 		clearButtonTexts();
+
+		if (moves == 9) { // Draw
+			Random random = new Random();
+			currentPlayer = (random.nextBoolean()) ? 'X' : 'O';
+		} else if (currentPlayer == 'X') {
+			currentPlayer = 'O'; // O lost, so O starts
+		} else {
+			currentPlayer = 'X'; // X lost, so X starts
+		}
+
 		moves = 0;
-		currentPlayer = 'X';
 		enableAllButtons();
 		hideWinningLines();
 		updateTurnLabel();
