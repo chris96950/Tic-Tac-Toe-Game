@@ -67,7 +67,6 @@ public class NewGuiController {
 		Random random = new Random();
 		currentPlayer = (random.nextBoolean()) ? 'X' : 'O'; // Randomly choose 'X' or 'O'
 		updateTurnLabel();
-		updateScoreboardDisplay();
 
 		Header_lbl.setText("Tic Tac Toe Game");
 		initializeBoard();
