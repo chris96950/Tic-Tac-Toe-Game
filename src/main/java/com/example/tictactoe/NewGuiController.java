@@ -165,15 +165,6 @@ public class NewGuiController {
 
 	private void updateTurnLabel() {
 		Header_lbl.setText(currentPlayer + "'s Turn");
-
-		if (currentPlayer == 'X') {
-			X_lbl.setStyle("-fx-text-fill: #828f55;"); // Active player color
-			O_lbl.setStyle("-fx-text-fill: white;");// Inactive player color
-		} else {
-			O_lbl.setStyle("-fx-text-fill: #828f55;"); // Active player color
-			X_lbl.setStyle("-fx-text-fill: white;");// Inactive player color
-		}
-
 	}
 
 	private void updateButtonText(int row, int col) {
