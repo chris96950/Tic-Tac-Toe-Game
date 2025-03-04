@@ -9,7 +9,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -17,7 +23,7 @@ import java.io.IOException;
 
 public class NewGuiController {
 	@FXML
-	private Label Player1_lbl, Player2_lbl;
+	private Label Player1_lbl, Player2_lbl, Header_lbl, X_lbl, O_lbl;
 
 	@FXML
 	private Button reset_btn;
@@ -57,10 +63,10 @@ public class NewGuiController {
 		player1Name = Player1_lbl.getText();
 		player2Name = Player2_lbl.getText();
 
+		Header_lbl.setText("Tic Tac Toe Game");
 		initializeBoard();
 		setupButtonActions();
 		hideWinningLines();
-		
 		updateScoreboardDisplay();
 	}
 
@@ -152,8 +158,22 @@ public class NewGuiController {
 			} else {
 				// Switch to the other player
 				currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
+				updateTurnLabel();
 			}
 		}
+	}
+
+	private void updateTurnLabel() {
+		Header_lbl.setText(currentPlayer + "'s Turn");
+
+		if (currentPlayer == 'X') {
+			X_lbl.setStyle("-fx-text-fill: #828f55;"); // Active player color
+			O_lbl.setStyle("-fx-text-fill: white;");// Inactive player color
+		} else {
+			O_lbl.setStyle("-fx-text-fill: #828f55;"); // Active player color
+			X_lbl.setStyle("-fx-text-fill: white;");// Inactive player color
+		}
+
 	}
 
 	private void updateButtonText(int row, int col) {
@@ -180,17 +200,31 @@ public class NewGuiController {
 	}
 
 	private void updateScoreboardDisplay() { //removed parameter
-	    StringBuilder scoreboardText = new StringBuilder("Scores:\n");
-	    GameEntry[] scores = Scoreboard.getInstance().getScore();
+		TextFlow textFlow = new TextFlow();
+		GameEntry[] scores = Scoreboard.getInstance().getScore();
 
-	    for (int i = 0; i < Scoreboard.getInstance().getNumEntries(); i++) {
-	        scoreboardText.append((i + 1)).append(". ")
-	                      .append(scores[i].getName()).append(": ")
-	                      .append(scores[i].getScore()).append("\n");
-	    }
+		for (int i = 0; i < Scoreboard.getInstance().getNumEntries(); i++) {
+			// Create the rank and separator
+			Text rank = new Text((i + 1) + ". ");
+			rank.setFont(Font.font("Calibri", FontWeight.SEMI_BOLD, 13));
+			textFlow.getChildren().add(rank);
 
-	    scoreBoard_lbl.setText(scoreboardText.toString());
+			// Create the bold name
+			Text name = new Text(scores[i].getName());
+			name.setFont(Font.font("Calibri", FontWeight.BOLD, 13)); // Adjust font and size as needed
+			textFlow.getChildren().add(name);
+
+			// Create the score and newline
+			Text score = new Text(": " + scores[i].getScore() + "\n");
+			score.setFont(Font.font("Calibri", FontWeight.BOLD, 13));
+			score.setFill(Paint.valueOf("#565f38"));
+			textFlow.getChildren().add(score);
+		}
+
+		scoreBoard_lbl.setText(""); // Clear the existing label text
+		scoreBoard_lbl.setGraphic(textFlow); // Set the TextFlow as the label's graphic
 	}
+
 
 	private void handleWin() {
 		if (currentPlayer == 'X') {
@@ -209,12 +243,36 @@ public class NewGuiController {
 		//Added so only winner gets added to scoreboard
 		if (currentPlayer == 'X') {
 		    Scoreboard.getInstance().add(new GameEntry(Player1_lbl.getText(), 100));
+
 		} else {
 		    Scoreboard.getInstance().add(new GameEntry(Player2_lbl.getText(), 100));
 		}
 
 		// Update the scoreboard label
 		updateScoreboardDisplay();
+
+
+		//Player win message
+		if (currentPlayer == 'X') {
+			TextFlow winMessagex = new TextFlow();
+			Text winText = new Text(Player1_lbl.getText() + " wins!");
+			winText.setFont(Font.font("Calibri", FontWeight.BOLD, 15));
+			winText.setFill(Paint.valueOf("#FF9D23"));
+			winMessagex.getChildren().add(winText);
+
+			// Add the win message to the scoreboard label
+			scoreBoard_lbl.setGraphic(new VBox(scoreBoard_lbl.getGraphic(), winMessagex));
+		} else {
+			TextFlow winMessageo = new TextFlow();
+			Text winText = new Text(Player2_lbl.getText() + " wins!");
+			winText.setFont(Font.font("Calibri", FontWeight.BOLD, 15));
+			winText.setFill(Paint.valueOf("#FF9D23"));
+			winMessageo.getChildren().add(winText);
+
+			// Add the win message to the scoreboard label
+			scoreBoard_lbl.setGraphic(new VBox(scoreBoard_lbl.getGraphic(), winMessageo));
+		}
+
 		disableAllButtons();
 		drawWinningLine();
 		PauseTransition pause = new PauseTransition(Duration.seconds(1.5));
@@ -224,10 +282,18 @@ public class NewGuiController {
 
 
 	private void handleDraw() {
-		// Display tie message with the current score
-		scoreBoard_lbl.setText("It's a tie!\n" +
-				Player1_lbl.getText() + ": " + player1Score + " | " +
-				Player2_lbl.getText() + ": " + player2Score);
+		// Update the scoreboard using TextFlow
+		updateScoreboardDisplay();
+
+		// Create and display the draw message separately
+		TextFlow drawMessage = new TextFlow();
+		Text tieText = new Text("It's a tie!");
+		tieText.setFont(Font.font("Calibri", FontWeight.BOLD, 15));
+		tieText.setFill(Paint.valueOf("#FF9D23"));
+		drawMessage.getChildren().add(tieText);
+
+		// Add the draw message to the scoreboard label.
+		scoreBoard_lbl.setGraphic(new VBox(scoreBoard_lbl.getGraphic(), drawMessage));
 
 		PauseTransition pause = new PauseTransition(Duration.seconds(1.5));
 		pause.setOnFinished(event -> resetBoard());
@@ -240,6 +306,8 @@ public class NewGuiController {
 		currentPlayer = 'X';
 		enableAllButtons();
 		hideWinningLines();
+		updateTurnLabel();
+		updateScoreboardDisplay();
 	}
 
 	private void disableAllButtons() {

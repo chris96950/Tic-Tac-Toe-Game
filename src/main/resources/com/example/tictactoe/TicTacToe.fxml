@@ -157,18 +157,18 @@
                         </Label>
                         <Label fx:id="scoreBoard_lbl" alignment="TOP_LEFT" layoutX="40.0" layoutY="232.0" prefHeight="201.0" prefWidth="275.0" style="-fx-border-color: #914F1E; -fx-background-color: white;" textFill="#5c381f">
                            <padding>
-                              <Insets left="20.0" top="20.0" />
+                              <Insets left="40.0" top="20.0" />
                            </padding>
                            <font>
                               <Font name="Calibri" size="18.0" />
                            </font>
                         </Label>
-                        <Label alignment="CENTER" layoutX="64.0" layoutY="55.0" prefHeight="25.0" prefWidth="37.0" text="X" textFill="#828f55">
+                        <Label fx:id="X_lbl" alignment="CENTER" layoutX="64.0" layoutY="55.0" prefHeight="25.0" prefWidth="37.0" text="X" textFill="#828f55">
                            <font>
                               <Font name="Calibri Bold" size="36.0" />
                            </font>
                         </Label>
-                        <Label alignment="CENTER" layoutX="64.0" layoutY="121.0" prefHeight="25.0" prefWidth="37.0" text="O" textFill="#828f55">
+                        <Label fx:id="O_lbl" alignment="CENTER" layoutX="64.0" layoutY="121.0" prefHeight="25.0" prefWidth="37.0" text="O" textFill="#828f55">
                            <font>
                               <Font name="Calibri Bold" size="36.0" />
                            </font>
