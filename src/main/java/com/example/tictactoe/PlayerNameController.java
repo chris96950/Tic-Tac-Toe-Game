@@ -20,7 +20,10 @@ public class PlayerNameController {
 	private TextField playerXName;
 	@FXML
 	private TextField playerOName;
-	//private int defCount;
+	
+	//Holds count of default X and O players that have been assigned 
+	private static int PXdefCount = 0; 
+	private static int POdefCount = 0;
 	
     public void setMainApplication(HelloApplication mainApp) {
         this.mainApp = mainApp;
@@ -38,6 +41,12 @@ public class PlayerNameController {
 	private void handleGameStart() {
         String playerX = playerXName.getText().trim();
         String playerO = playerOName.getText().trim();
+        if (playerX.equals("")) {
+        	playerX = "Player X (" + PXdefCount + ")"; PXdefCount++;
+        }
+        if (playerO.equals("")) {
+        	playerO = "Player O (" + POdefCount + ")"; POdefCount++;
+        }
 
 		System.out.println("Starting new game with:");
 		System.out.println("Player X: " + playerX);
@@ -57,9 +66,6 @@ public class PlayerNameController {
             e.printStackTrace();
         }
 	}
-
-
-
 
 
 	public void start(Stage primaryStage) {
